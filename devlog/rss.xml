@@ -4,10 +4,46 @@
         <title>Typewriter Blog</title>
         <link>https://docs.typewritermc.com/devlog</link>
         <description>Typewriter Blog</description>
-        <lastBuildDate>Wed, 11 Sep 2024 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 15 Dec 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Dynamic Variables update]]></title>
+            <link>https://docs.typewritermc.com/devlog/0.7.0-release</link>
+            <guid>https://docs.typewritermc.com/devlog/0.7.0-release</guid>
+            <pubDate>Sun, 15 Dec 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Hey reader! After weeks of development, I'm thrilled to introduce Dynamic Variables - a system that lets your content adapt during gameplay.]]></description>
+            <content:encoded><![CDATA[<p>Hey reader! After weeks of development, I'm thrilled to introduce Dynamic Variables - a system that lets your content adapt during gameplay.</p>
+<!-- -->
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-are-dynamic-variables">What are Dynamic Variables<a href="https://docs.typewritermc.com/devlog/0.7.0-release#what-are-dynamic-variables" class="hash-link" aria-label="Direct link to What are Dynamic Variables" title="Direct link to What are Dynamic Variables">​</a></h2>
+<p>Before, all fields on an entry needed to be filled in with valid values during configuration time.
+With Dynamic variables, fields can now be substituted with runtime values.</p>
+<p>To give you some inspiration of what you can now do:</p>
+<ul>
+<li><strong>Have cinematics in the world the player is in, instead of in a fixed world. Which is useful for playing cinematics in generated dungeons.</strong></li>
+<li>Have the skin of a NPC be determined from a placeholder. For making leaderboard NPCs.</li>
+<li>Having the strength of a potion effect be the value of a fact. For "upgradable skills."</li>
+<li>Making launch pads shoot the player in the direction where they are looking.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="placeholder-parameters">Placeholder Parameters<a href="https://docs.typewritermc.com/devlog/0.7.0-release#placeholder-parameters" class="hash-link" aria-label="Direct link to Placeholder Parameters" title="Direct link to Placeholder Parameters">​</a></h2>
+<p>Sometimes you want to know different details of an entry. Like the time it last got updated. The remaining time until the fact resets.
+Entries now support parameterized placeholders for more detailed information:</p>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#000000;--prism-background-color:#ffffff"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#000000;background-color:#ffffff"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#000000"><span class="token plain">%typewriter_&lt;entry id&gt;:remaining:10%     // Items left to collect</span><br></span><span class="token-line" style="color:#000000"><span class="token plain">%typewriter_&lt;entry id&gt;:time:expires:relative%     // Time until daily quest is active</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="new-entries">New Entries<a href="https://docs.typewritermc.com/devlog/0.7.0-release#new-entries" class="hash-link" aria-label="Direct link to New Entries" title="Direct link to New Entries">​</a></h2>
+<ul>
+<li>Entity types: ArmorStand, EnderDragon, Parrot, Wolf, BlockDisplay</li>
+<li><code>CalculatedFact</code> for complex expressions</li>
+<li><code>WeightedRandomTriggerGate</code> for probability-based triggers</li>
+<li>World and potion effect audience filters</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="breaking-changes">Breaking Changes<a href="https://docs.typewritermc.com/devlog/0.7.0-release#breaking-changes" class="hash-link" aria-label="Direct link to Breaking Changes" title="Direct link to Breaking Changes">​</a></h2>
+<ul>
+<li>Extension developers: PlaceholderEntry API updated</li>
+<li><code>Random...DialogueEntry</code> deprecated (use <code>RandomVariable</code> instead)</li>
+</ul>]]></content:encoded>
+            <category>release</category>
+        </item>
         <item>
             <title><![CDATA[Extension Update]]></title>
             <link>https://docs.typewritermc.com/devlog/0.6.0-release</link>
