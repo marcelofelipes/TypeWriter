@@ -1,6 +1,7 @@
 name: Build Specified Extension
 
 on:
+  workflow_dispatch:
   workflow_call:
     inputs:
       extension:
