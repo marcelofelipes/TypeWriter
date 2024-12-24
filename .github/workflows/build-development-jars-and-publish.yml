@@ -32,22 +32,22 @@ jobs:
         with:
           arguments: test clean --scan
           build-root-directory: ./extensions
-#  ----------------------------------------------------------------------------------------------------
-      - name: Publish Engine to Beta Maven Repository
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: publishAllPublicationsToTypewriterBetaRepository -PTypewriterBetaUsername=${{ secrets.MAVEN_USERNAME }} -PTypewriterBetaPassword=${{ secrets.MAVEN_PASSWORD }} --scan
-          build-root-directory: ./engine
-      - name: Publish All Extensions to Beta Maven Repository
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: publishAllPublicationsToTypewriterBetaRepository -PTypewriterBetaUsername=${{ secrets.MAVEN_USERNAME }} -PTypewriterBetaPassword=${{ secrets.MAVEN_PASSWORD }} --scan
-          build-root-directory: ./extensions
-      - name: Publish Module-Plugin to Beta Maven Repository
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: publishAllPublicationsToTypewriterBetaRepository -PTypewriterBetaUsername=${{ secrets.MAVEN_USERNAME }} -PTypewriterBetaPassword=${{ secrets.MAVEN_PASSWORD }} --scan
-          build-root-directory: ./module-plugin
+# #  ----------------------------------------------------------------------------------------------------
+#       - name: Publish Engine to Beta Maven Repository
+#         uses: gradle/gradle-build-action@v2
+#         with:
+#           arguments: publishAllPublicationsToTypewriterBetaRepository -PTypewriterBetaUsername=${{ secrets.MAVEN_USERNAME }} -PTypewriterBetaPassword=${{ secrets.MAVEN_PASSWORD }} --scan
+#           build-root-directory: ./engine
+#       - name: Publish All Extensions to Beta Maven Repository
+#         uses: gradle/gradle-build-action@v2
+#         with:
+#           arguments: publishAllPublicationsToTypewriterBetaRepository -PTypewriterBetaUsername=${{ secrets.MAVEN_USERNAME }} -PTypewriterBetaPassword=${{ secrets.MAVEN_PASSWORD }} --scan
+#           build-root-directory: ./extensions
+#       - name: Publish Module-Plugin to Beta Maven Repository
+#         uses: gradle/gradle-build-action@v2
+#         with:
+#           arguments: publishAllPublicationsToTypewriterBetaRepository -PTypewriterBetaUsername=${{ secrets.MAVEN_USERNAME }} -PTypewriterBetaPassword=${{ secrets.MAVEN_PASSWORD }} --scan
+#           build-root-directory: ./module-plugin
 #  ----------------------------------------------------------------------------------------------------
       # Has to be after the publish, because it needs to delete the slim jars and only keep the shadowed jars for the modrinth upload
       - name: Build Extensions
@@ -56,56 +56,56 @@ jobs:
           arguments: buildRelease --scan
           build-root-directory: ./extensions
 #  ----------------------------------------------------------------------------------------------------
-      - name: Publish Modrinth
-        uses: Kir-Antipov/mc-publish@v3.3
-        id: publish
-        with:
-          modrinth-id: "Vm7B3ymm"
-          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          modrinth-featured: false
-          files: |
-            engine/engine-paper/build/libs/Typewriter.jar
-            extensions/**/build/libs/*.jar
-          name: "Typewriter v${{ steps.vars.outputs.version }} Build"
-          version: "${{ steps.vars.outputs.version }}"
-          version-type: "beta"
-          loaders: |
-            paper
-          game-versions: |
-            1.21.3
-          dependencies: |
-            packetevents
+      # - name: Publish Modrinth
+      #   uses: Kir-Antipov/mc-publish@v3.3
+      #   id: publish
+      #   with:
+      #     modrinth-id: "Vm7B3ymm"
+      #     modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+      #     modrinth-featured: false
+      #     files: |
+      #       engine/engine-paper/build/libs/Typewriter.jar
+      #       extensions/**/build/libs/*.jar
+      #     name: "Typewriter v${{ steps.vars.outputs.version }} Build"
+      #     version: "${{ steps.vars.outputs.version }}"
+      #     version-type: "beta"
+      #     loaders: |
+      #       paper
+      #     game-versions: |
+      #       1.21.3
+      #     dependencies: |
+      #       packetevents
 
-      - name: Publish Hangar
-        uses: gradle/gradle-build-action@v2
-        continue-on-error: true
-        env:
-          HANGAR_API_TOKEN: ${{ secrets.HANGAR_API_TOKEN }}
-        with:
-          arguments: engine-paper:publishPluginPublicationToHangar --scan
-          build-root-directory: ./engine
-      - name: Add Tag
-        uses: mathieudutour/github-tag-action@v6.2
-        continue-on-error: true
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          default_bump: false
-          custom_tag: "${{ steps.vars.outputs.version }}"
-          release_branches: develop
-      - name: Notify Discord
-        uses: sarisia/actions-status-discord@v1
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          nodetail: true
-          title: Published Beta Build
-          description: |
-            I have published a beta build of Typewriter.
-            Version: ${{ steps.vars.outputs.version }}
-            [Download](https://modrinth.com/plugin/typewriter/version/${{ steps.publish.outputs.modrinth-version }})
-      - name: Notify Winston
-        uses: fjogeleit/http-request-action@v1
-        with:
-          url: 'https://winston-discord-bot.fly.dev/publishbeta'
-          method: 'GET'
-          customHeaders: '{"X-Signature": "${{ secrets.WINSTON_SIGNATURE }}"}'
+      # - name: Publish Hangar
+      #   uses: gradle/gradle-build-action@v2
+      #   continue-on-error: true
+      #   env:
+      #     HANGAR_API_TOKEN: ${{ secrets.HANGAR_API_TOKEN }}
+      #   with:
+      #     arguments: engine-paper:publishPluginPublicationToHangar --scan
+      #     build-root-directory: ./engine
+      # - name: Add Tag
+      #   uses: mathieudutour/github-tag-action@v6.2
+      #   continue-on-error: true
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     default_bump: false
+      #     custom_tag: "${{ steps.vars.outputs.version }}"
+      #     release_branches: develop
+      # - name: Notify Discord
+      #   uses: sarisia/actions-status-discord@v1
+      #   with:
+      #     webhook: ${{ secrets.DISCORD_WEBHOOK }}
+      #     nodetail: true
+      #     title: Published Beta Build
+      #     description: |
+      #       I have published a beta build of Typewriter.
+      #       Version: ${{ steps.vars.outputs.version }}
+      #       [Download](https://modrinth.com/plugin/typewriter/version/${{ steps.publish.outputs.modrinth-version }})
+      # - name: Notify Winston
+      #   uses: fjogeleit/http-request-action@v1
+      #   with:
+      #     url: 'https://winston-discord-bot.fly.dev/publishbeta'
+      #     method: 'GET'
+      #     customHeaders: '{"X-Signature": "${{ secrets.WINSTON_SIGNATURE }}"}'
 
